@@ -6,7 +6,8 @@ from setuptools import setup
 setup(
     name='pathresolver',
     version='0.1.1',
-    description='''
+    description='Resolve paths within nested objects.',
+    long_description='''
         Path Resolver
         =============
 
@@ -62,7 +63,6 @@ setup(
     author='Andrew Crosio',
     author_email='andrew@andrewcrosio.com',
     url='https://github.com/Andrew-Crosio/pathresolver',
-    long_description=long_description,
     packages=['pathresolver'],
     include_package_data=True,
     test_module=['tests'],
