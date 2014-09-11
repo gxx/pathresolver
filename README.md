@@ -46,7 +46,7 @@ Or, alternatively, I could use a simple DSL to look up and resolve the items I n
 
 ## Advanced Usage
 
-``python
+```python
 >>> resolve({'parent': ['one', 'two', 'three']}, 'parent.*')
 ['one', 'two', 'three']
 
