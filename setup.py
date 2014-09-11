@@ -13,6 +13,8 @@ setup(
     version='0.1',
     description='Resolve nested object paths',
     author='Andrew Crosio',
+    author_email='andrew@andrewcrosio.com',
+    url='https://github.com/Andrew-Crosio/pathresolver',
     long_description=long_description,
     packages=['pathresolver'],
     include_package_data=True,
