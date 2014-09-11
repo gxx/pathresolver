@@ -3,11 +3,6 @@ import os
 from setuptools import setup
 
 
-# Get whatever in README.md and assign it to the `long_description` var.
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
-    long_description = f.read()
-
-
 setup(
     name='pathresolver',
     version='0.1.1',
