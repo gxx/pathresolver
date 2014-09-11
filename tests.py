@@ -10,7 +10,12 @@ EQUALITY_TEST_SETS = [
     (['testvalue'], '0', 'testvalue'),
     (['testvalue'], '*', ['testvalue']),
     ({'key': 'testvalue'}, 'key', 'testvalue'),
-    ({'key': 'testvalue'}, '*', ['testvalue'])
+    ({'key': 'testvalue'}, '*', ['testvalue']),
+    ({0: 'testvalue'}, '0', 'testvalue'),
+    ({'parent': ['one', 'two', 'three']}, 'parent.*', ['one', 'two', 'three']),
+    ({'parent': [{'child': 'testvalue1'}]}, 'parent.*.child', ['testvalue1']),
+    ({'parent': [{'child': 'testvalue1'}, {'child': 'testvalue2'}]}, 'parent.*.child', ['testvalue1', 'testvalue2']),
+    ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', ['testvalue1', 'testvalue2'])
 ]
 
 

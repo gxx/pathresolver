@@ -61,7 +61,7 @@ def resolve(value, path, default=NO_DEFAULT):
             except AttributeError:
                 try:
                     current_value = value[current_key]
-                except TypeError:
+                except (KeyError, TypeError):
                     current_value = value[int(current_key)]
         except (TypeError, ValueError, KeyError, AttributeError):
             if default is NO_DEFAULT:
