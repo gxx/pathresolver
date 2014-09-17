@@ -53,7 +53,7 @@ def resolve(value, path, default=NO_DEFAULT):
 
         evaluated_value = [value for value in evaluated_value if value is not IGNORE_VALUE]
         if not evaluated_value and default is NO_DEFAULT:
-            raise ValueError('Unable to find {} in {}'.format(path, value))
+            raise NoMatchError('Unable to find {} in {}'.format(path, value))
     else:
         try:
             try:
@@ -65,7 +65,7 @@ def resolve(value, path, default=NO_DEFAULT):
                     current_value = value[int(current_key)]
         except (TypeError, ValueError, KeyError, AttributeError):
             if default is NO_DEFAULT:
-                raise ValueError('Unable to find {} in {}'.format(path, value))
+                raise NoMatchError('Unable to find {} in {}'.format(path, value))
             else:
                 evaluated_value = default
         else:

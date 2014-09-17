@@ -5,6 +5,7 @@ from unittest import TestCase
 
 from pathresolver import resolve
 from pathresolver import BadValueError
+from pathresolver import NoMatchError
 
 
 class IterativeObject(object):
@@ -40,8 +41,8 @@ EQUALITY_TEST_SETS = [
 ]
 
 EXCEPTION_TEST_SETS = [
-    (object(), '*', ValueError),
-    ({'some': ['other', 'structure']}, 'something.else.entirely.*', None)
+    (object(), '*', BadValueError),
+    ({'some': ['other', 'structure']}, 'something.else.entirely.*', NoMatchError)
 ]
 
 
@@ -65,7 +66,7 @@ class EqualityTestGenerator(object):
 class ExceptionTestGenerator(object):
     @staticmethod
     def _generate_test(data, path, expected):
-        return lambda self: self.assertRaises(BadValueError, lambda: resolve(data, path))
+        return lambda self: self.assertRaises(expected, lambda: resolve(data, path))
 
     def __new__(cls, *args, **kwargs):
         test_funcs = {}
