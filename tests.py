@@ -37,7 +37,8 @@ EQUALITY_TEST_SETS = [
     ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', ['testvalue1', 'testvalue2']),
     ({'parent': IterativeObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'parent': GetItemObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
-    ({'some': ['other', 'structure']}, 'something.else.entirely.*', None)
+    ({'some': ['other', 'structure']}, 'something.else.entirely.*', None),
+    ({'some': [{'nested': [1, 2]}, {'nested': [3, 4]}]}, 'some.*.nested.*', [[1, 2], [3, 4]]),
 ]
 
 EXCEPTION_TEST_SETS = [
