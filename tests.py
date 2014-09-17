@@ -4,6 +4,7 @@
 from unittest import TestCase
 
 from pathresolver import resolve
+from pathresolver import BadValueError
 
 
 class IterativeObject(object):
@@ -30,17 +31,24 @@ EQUALITY_TEST_SETS = [
     ({0: 'testvalue'}, '0', 'testvalue'),
     ({'parent': ['one', 'two', 'three']}, 'parent.*', ['one', 'two', 'three']),
     ({'parent': [{'child': 'testvalue1'}]}, 'parent.*.child', ['testvalue1']),
+    ({'parent': [{'child': {'testvalue1'}}]}, 'parent.*.child', [{'testvalue1'}]),
     ({'parent': [{'child': 'testvalue1'}, {'child': 'testvalue2'}]}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', ['testvalue1', 'testvalue2']),
     ({'parent': IterativeObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'parent': GetItemObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
+    ({'some': ['other', 'structure']}, 'something.else.entirely.*', None)
+]
+
+EXCEPTION_TEST_SETS = [
+    (object(), '*', ValueError),
+    ({'some': ['other', 'structure']}, 'something.else.entirely.*', None)
 ]
 
 
 class EqualityTestGenerator(object):
     @staticmethod
     def _generate_test(data, path, expected):
-        return lambda self: self.assertEqual(resolve(data, path), expected)
+        return lambda self: self.assertEqual(resolve(data, path, default=None), expected)
 
     def __new__(cls, *args, **kwargs):
         test_funcs = {}
@@ -54,5 +62,24 @@ class EqualityTestGenerator(object):
         return test_klass
 
 
+class ExceptionTestGenerator(object):
+    @staticmethod
+    def _generate_test(data, path, expected):
+        return lambda self: self.assertRaises(BadValueError, lambda: resolve(data, path))
+
+    def __new__(cls, *args, **kwargs):
+        test_funcs = {}
+
+        for num, (test_data, test_path, test_result) in enumerate(EXCEPTION_TEST_SETS):
+            test_name = 'test_exception_{num}'.format(num=num + 1)
+            test_funcs[test_name] = cls._generate_test(test_data, test_path, test_result)
+
+        test_klass = type('PathResolverExceptionTests', (TestCase,), test_funcs)
+
+        return test_klass
+
+
 PathResolverEqualityTests = EqualityTestGenerator()
+
+PathResolverExceptionTests = ExceptionTestGenerator()
 
