@@ -42,7 +42,9 @@ EQUALITY_TEST_SETS = [
 
 EXCEPTION_TEST_SETS = [
     (object(), '*', BadValueError),
-    ({'some': ['other', 'structure']}, 'something.else.entirely.*', NoMatchError)
+    ({'some': ['other', 'structure']}, 'something.else.entirely.*', NoMatchError),
+    ({'some': None}, 'some.*', BadValueError),
+    ({'some': [{'empty': 'sets'}]}, 'some.*.other', NoMatchError)
 ]
 
 
