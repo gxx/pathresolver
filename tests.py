@@ -6,6 +6,22 @@ from unittest import TestCase
 from pathresolver import resolve
 
 
+class IterativeObject(object):
+    def __init__(self, items):
+        self.items = items
+
+    def __iter__(self):
+        return iter(self.items)
+
+
+class GetItemObject(object):
+    def __init__(self, items):
+        self.items = items
+
+    def __getitem__(self, key):
+        return self.items[key]
+
+
 EQUALITY_TEST_SETS = [
     (['testvalue'], '0', 'testvalue'),
     (['testvalue'], '*', ['testvalue']),
@@ -15,7 +31,9 @@ EQUALITY_TEST_SETS = [
     ({'parent': ['one', 'two', 'three']}, 'parent.*', ['one', 'two', 'three']),
     ({'parent': [{'child': 'testvalue1'}]}, 'parent.*.child', ['testvalue1']),
     ({'parent': [{'child': 'testvalue1'}, {'child': 'testvalue2'}]}, 'parent.*.child', ['testvalue1', 'testvalue2']),
-    ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', ['testvalue1', 'testvalue2'])
+    ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', ['testvalue1', 'testvalue2']),
+    ({'parent': IterativeObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
+    ({'parent': GetItemObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
 ]
 
 
