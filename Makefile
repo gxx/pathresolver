@@ -6,6 +6,10 @@ coverage :
 	coverage run setup.py test
 	coverage report
 
+coverage_show : coverage
+	coverage html
+	google-chrome htmlcov/index.html
+
 pypi :
 	python setup.py bdist upload
 	python setup.py sdist upload
