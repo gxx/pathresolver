@@ -4,8 +4,7 @@
 from unittest import TestCase
 
 from pathresolver import resolve
-from pathresolver import BadValueError
-from pathresolver import NoMatchError
+from pathresolver.exceptions import NoMatchError
 
 
 class IterativeObject(object):
@@ -39,12 +38,13 @@ EQUALITY_TEST_SETS = [
     ({'parent': GetItemObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', None),
     ({'some': [{'nested': [1, 2]}, {'nested': [3, 4]}]}, 'some.*.nested.*', [[1, 2], [3, 4]]),
+    ({'some': [{'empty': 'sets'}]}, 'some.*.other', None)
 ]
 
 EXCEPTION_TEST_SETS = [
-    (object(), '*', BadValueError),
+    (object(), '*', NoMatchError),
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', NoMatchError),
-    ({'some': None}, 'some.*', BadValueError),
+    ({'some': None}, 'some.*', NoMatchError),
     ({'some': [{'empty': 'sets'}]}, 'some.*.other', NoMatchError)
 ]
 
