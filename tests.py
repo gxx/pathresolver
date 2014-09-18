@@ -4,8 +4,7 @@
 from unittest import TestCase
 
 from pathresolver import resolve
-from pathresolver import BadValueError
-from pathresolver import NoMatchError
+from pathresolver.exceptions import NoMatchError
 
 
 class IterativeObject(object):
@@ -42,9 +41,9 @@ EQUALITY_TEST_SETS = [
 ]
 
 EXCEPTION_TEST_SETS = [
-    (object(), '*', BadValueError),
+    (object(), '*', NoMatchError),
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', NoMatchError),
-    ({'some': None}, 'some.*', BadValueError),
+    ({'some': None}, 'some.*', NoMatchError),
     ({'some': [{'empty': 'sets'}]}, 'some.*.other', NoMatchError)
 ]
 
