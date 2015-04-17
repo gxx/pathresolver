@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-import os
 from setuptools import setup
+from setuptools import find_packages
 
 
 setup(
     name='pathresolver',
-    version='0.2.0',
+    version='0.2.1',
     description='Resolve paths within nested objects.',
     long_description='''
         Path Resolver
@@ -14,9 +14,9 @@ setup(
         Resolve paths within nested objects.
 
 
-        Build Status:     [![Build Status](https://travis-ci.org/gxx/pathresolver.svg?branch=master)](https://travis-ci.org/gxx/pathresolver)
+        Build Status:     https://travis-ci.org/gxx/pathresolver
 
-        Coverage:         [![Coverage Status](https://coveralls.io/repos/Andrew-Crosio/pathresolver/badge.png)](https://coveralls.io/r/Andrew-Crosio/pathresolver)
+        Coverage:         https://coveralls.io/r/Andrew-Crosio/pathresolver
 
 
         # What is Path Resolver?
@@ -137,11 +137,14 @@ setup(
 
         >>> resolve(locals(), 'Test.Nested.attribute')
         1
+
+
+
     ''',
     author='Andrew Crosio',
     author_email='andrew@andrewcrosio.com',
     url='https://github.com/Andrew-Crosio/pathresolver',
-    packages=['pathresolver'],
+    packages=find_packages(),
     include_package_data=True,
     setup_requires=[],
     install_requires=[],
