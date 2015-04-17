@@ -36,6 +36,13 @@ class NestedFunctionObject(object):
         return 2
 
 
+class UpdateOnInstantiationTestObject():
+    a = 0
+
+    def __init__(self):
+        self.a = 1
+
+
 EQUALITY_TEST_SETS = [
     (['testvalue'], '0', 'testvalue'),
     (['testvalue'], '*', ['testvalue']),
@@ -56,6 +63,8 @@ EQUALITY_TEST_SETS = [
     (NestedFunctionObject(), 'again.again.result()', 2),
     (NestedFunctionObject(), 'again().again().result()', 2),
     (NestedFunctionObject(), 'again().again().result()', 2),
+    (UpdateOnInstantiationTestObject, 'a', 0),
+    (UpdateOnInstantiationTestObject(), 'a', 1),
     # (lambda: lambda: lambda: 2, '*.*.*', 2)
 ]
 
