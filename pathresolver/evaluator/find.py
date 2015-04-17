@@ -14,13 +14,28 @@ class Finder(EvaluatorBase):
         self.match_all_resolver = match_all_resolver
 
     def resolve(self, current_key, next_key, value, default=NO_DEFAULT):
+        call_as_func = False
+
+        # TODO: add functionality to call with index values or some such i.e. 'a.b($0)' or values 'a.b("c")
+        if current_key.endswith('()'):
+            current_key = current_key[:-2]
+            call_as_func = True
+
         # Attempt to do a match-all first
         try:
             iterable = self.match_all_resolver.resolve(current_key, value)
         except UnableToResolve:
             next_value = self.resolver.resolve(current_key, value)
+
+            if call_as_func:
+                next_value = next_value()
+
             evaluated_value = self.evaluate(next_value, next_key, default=default)
         else:
+            # TODO: add in ability to call all items on an iterable as funcs
+            if call_as_func:
+                raise NotImplementedError()
+
             evaluated_value = (self.evaluate(next_value, next_key, default=IGNORE_VALUE) for next_value in iterable)
             evaluated_value = [value for value in evaluated_value if value is not IGNORE_VALUE]
 
@@ -46,7 +61,16 @@ class Finder(EvaluatorBase):
             next_key = None
 
         try:
-            evaluated_value = self.resolve(current_key, next_key, value, default=default)
+            # Wrap the call and if it cannot be resolved, check if we can alternatively evaluate the value of a
+            # function while back-tracking here. If not, simply re-raise the error
+            try:
+                evaluated_value = self.resolve(current_key, next_key, value, default=default)
+            except (NoMatchError, UnableToResolve):
+                if not callable(value):
+                    raise
+
+                value = value()
+                evaluated_value = self.resolve(current_key, next_key, value, default=default)
         except (NoMatchError, UnableToResolve) as error:
             if default is NO_DEFAULT:
                 if isinstance(error, NoMatchError):
@@ -58,7 +82,7 @@ class Finder(EvaluatorBase):
                     root = current_key
                     index = 0
 
-                raise NoMatchError('Unable to find {} in {}'.format(path, value), root, index)
+                raise NoMatchError('Unable to find {} in {} at index'.format(path, value, index), root, index)
 
             evaluated_value = default
 

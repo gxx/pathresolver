@@ -28,6 +28,14 @@ class NestedObject:
         attribute = 1
 
 
+class NestedFunctionObject(object):
+    def again(self):
+        return NestedFunctionObject()
+
+    def result(self):
+        return 2
+
+
 EQUALITY_TEST_SETS = [
     (['testvalue'], '0', 'testvalue'),
     (['testvalue'], '*', ['testvalue']),
@@ -44,14 +52,19 @@ EQUALITY_TEST_SETS = [
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', None),
     ({'some': [{'nested': [1, 2]}, {'nested': [3, 4]}]}, 'some.*.nested.*', [[1, 2], [3, 4]]),
     ({'some': [{'empty': 'sets'}]}, 'some.*.other', None),
-    (locals(), 'NestedObject.Inner.attribute', 1)
+    (locals(), 'NestedObject.Inner.attribute', 1),
+    (NestedFunctionObject(), 'again.again.result()', 2),
+    (NestedFunctionObject(), 'again().again().result()', 2),
+    (NestedFunctionObject(), 'again().again().result()', 2),
+    # (lambda: lambda: lambda: 2, '*.*.*', 2)
 ]
 
 EXCEPTION_TEST_SETS = [
     (object(), '*', NoMatchError),
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', NoMatchError),
     ({'some': None}, 'some.*', NoMatchError),
-    ({'some': [{'empty': 'sets'}]}, 'some.*.other', NoMatchError)
+    ({'some': [{'empty': 'sets'}]}, 'some.*.other', NoMatchError),
+    (NestedFunctionObject(), 'again()().again.result', NoMatchError),
 ]
 
 
