@@ -23,6 +23,11 @@ class GetItemObject(object):
         return self.items[key]
 
 
+class NestedObject:
+    class Inner:
+        attribute = 1
+
+
 EQUALITY_TEST_SETS = [
     (['testvalue'], '0', 'testvalue'),
     (['testvalue'], '*', ['testvalue']),
@@ -38,7 +43,8 @@ EQUALITY_TEST_SETS = [
     ({'parent': GetItemObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', None),
     ({'some': [{'nested': [1, 2]}, {'nested': [3, 4]}]}, 'some.*.nested.*', [[1, 2], [3, 4]]),
-    ({'some': [{'empty': 'sets'}]}, 'some.*.other', None)
+    ({'some': [{'empty': 'sets'}]}, 'some.*.other', None),
+    (locals(), 'NestedObject.Inner.attribute', 1)
 ]
 
 EXCEPTION_TEST_SETS = [
