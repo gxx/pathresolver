@@ -1,6 +1,6 @@
 from pathresolver.exceptions import NoMatchError, UnableToResolve
 from pathresolver.resolver import basic_multi_resolver
-from pathresolver.resolver import match_all_resolver
+from pathresolver.resolver import match_all_resolver as _match_all_resolver
 from .base import EvaluatorBase
 from .base import NO_DEFAULT  # TODO: need to handle default error raising from base
 
@@ -9,7 +9,7 @@ IGNORE_VALUE = object()
 
 
 class Finder(EvaluatorBase):
-    def __init__(self, resolver=basic_multi_resolver, match_all_resolver=match_all_resolver):
+    def __init__(self, resolver=basic_multi_resolver, match_all_resolver=_match_all_resolver):
         self.resolver = resolver
         self.match_all_resolver = match_all_resolver
 
