@@ -25,6 +25,23 @@ I could, for example, simple write a lot of code and hard-coded indexes, key loo
 Or, alternatively, I could use a simple DSL to look up and resolve the items I need. This is what Path Resolver is.
 
 
+# Installation
+
+Simply install with pip:
+
+1.  Directly from pypi
+
+    ```python
+    pip install pathresolver
+    ```
+
+2.  From the Git repository
+
+    ```python
+    pip install git+git://github.com/gxx/pathresolver.git@master#egg=pathresolver
+    ```
+
+
 # Example Usage
 
 
