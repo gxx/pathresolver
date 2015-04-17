@@ -10,7 +10,7 @@ MATCH_ALL = '*'
 
 # ---- Basic Resolvers ---- #
 # Resolve by Attribute
-attribute_resolver = KeyResolver(lambda k, v: getattr(k, v), (AttributeError, TypeError))
+attribute_resolver = KeyResolver(lambda k, v: getattr(v, k), (AttributeError, TypeError))
 
 # Resolve by Key (i.e. dictionary)
 key_lookup_resolver = KeyResolver(lambda k, v: v[k], (KeyError, TypeError))
