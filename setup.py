@@ -16,7 +16,7 @@ setup(
 
         Build Status:     https://travis-ci.org/gxx/pathresolver
 
-        Coverage:         https://coveralls.io/r/Andrew-Crosio/pathresolver
+        Coverage:         https://coveralls.io/r/gxx/pathresolver
 
 
         # What is Path Resolver?

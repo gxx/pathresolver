@@ -6,7 +6,7 @@ Resolve paths within nested objects.
 
 Build Status:     [![Build Status](https://travis-ci.org/gxx/pathresolver.svg?branch=master)](https://travis-ci.org/gxx/pathresolver)
 
-Coverage:         [![Coverage Status](https://coveralls.io/repos/Andrew-Crosio/pathresolver/badge.png)](https://coveralls.io/r/Andrew-Crosio/pathresolver)
+Coverage:         [![Coverage Status](https://coveralls.io/repos/gxx/pathresolver/badge.png)](https://coveralls.io/r/gxx/pathresolver)
 
 
 # What is Path Resolver?
