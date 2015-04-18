@@ -34,6 +34,27 @@ setup(
 
         Or, alternatively, I could use a simple DSL to look up and resolve the items I need. This is what Path Resolver is.
 
+        # Installation
+
+        Simply install with pip:
+
+        1.  Directly from pypi
+
+            ```python
+            pip install pathresolver
+            ```
+
+        2.  From the Git repository
+
+            ```python
+            pip install git+git://github.com/gxx/pathresolver.git@master#egg=pathresolver
+            ```
+
+
+        # Compatibility
+
+        pathresolver is compatible with all versions of Python above 2.6 including Python 3.0 and pypy versions of these.
+
 
         # Example Usage
 
