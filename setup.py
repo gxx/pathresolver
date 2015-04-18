@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 setup(
     name='pathresolver',
-    version='0.2.1',
+    version='0.2.2',
     description='Resolve paths within nested objects.',
     long_description='''
         Path Resolver
