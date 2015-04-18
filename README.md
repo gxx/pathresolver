@@ -42,6 +42,11 @@ Simply install with pip:
     ```
 
 
+# Compatibility
+
+pathresolver is compatible with all versions of Python above 2.6 including Python 3.0 and pypy versions of these.
+
+
 # Example Usage
 
 

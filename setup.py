@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 setup(
     name='pathresolver',
-    version='0.2.1',
+    version='0.2.2',
     description='Resolve paths within nested objects.',
     long_description='''
         Path Resolver
@@ -33,6 +33,27 @@ setup(
         I could, for example, simple write a lot of code and hard-coded indexes, key lookups, et cetera.
 
         Or, alternatively, I could use a simple DSL to look up and resolve the items I need. This is what Path Resolver is.
+
+        # Installation
+
+        Simply install with pip:
+
+        1.  Directly from pypi
+
+            ```python
+            pip install pathresolver
+            ```
+
+        2.  From the Git repository
+
+            ```python
+            pip install git+git://github.com/gxx/pathresolver.git@master#egg=pathresolver
+            ```
+
+
+        # Compatibility
+
+        pathresolver is compatible with all versions of Python above 2.6 including Python 3.0 and pypy versions of these.
 
 
         # Example Usage

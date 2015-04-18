@@ -2,6 +2,12 @@ language:
     python
 python:
   - 2.7
+  - 2.7.9
+  - 3.2
+  - 3.3
+  - 3.4
+  - pypy
+  - pypy3
 install:
     pip install -r devrequirements.txt
 script:

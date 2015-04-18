@@ -53,7 +53,7 @@ EQUALITY_TEST_SETS = [
     ({'parent': [{'child': 'testvalue1'}]}, 'parent.*.child', ['testvalue1']),
     ({'parent': [{'child': {'testvalue1'}}]}, 'parent.*.child', [{'testvalue1'}]),
     ({'parent': [{'child': 'testvalue1'}, {'child': 'testvalue2'}]}, 'parent.*.child', ['testvalue1', 'testvalue2']),
-    ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', ['testvalue1', 'testvalue2']),
+    ({'parent': {'child1': 'testvalue1', 'child2': 'testvalue2'}}, 'parent.*', lambda other: all(i in ['testvalue1', 'testvalue2'] for i in other)),
     ({'parent': IterativeObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'parent': GetItemObject([{'child': 'testvalue1'}, {'child': 'testvalue2'}])}, 'parent.*.child', ['testvalue1', 'testvalue2']),
     ({'some': ['other', 'structure']}, 'something.else.entirely.*', None),
@@ -80,7 +80,10 @@ EXCEPTION_TEST_SETS = [
 class EqualityTestGenerator(object):
     @staticmethod
     def _generate_test(data, path, expected):
-        return lambda self: self.assertEqual(resolve(data, path, default=None), expected)
+        if hasattr(expected, '__call__'):
+            return lambda self: self.assertTrue(expected(resolve(data, path, default=None)))
+        else:
+            return lambda self: self.assertEqual(resolve(data, path, default=None), expected)
 
     def __new__(cls, *args, **kwargs):
         test_funcs = {}
